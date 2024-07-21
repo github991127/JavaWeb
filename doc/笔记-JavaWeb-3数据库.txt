@@ -1,0 +1,247 @@
+⚫●◽★
+——————————————————————
+黑马程序员2023新版JavaWeb开发教程，实现javaweb企业开发全流程
+https://www.bilibili.com/video/BV1m84y1w7Tb/?p=50
+——————————————————————
+MySQL
+⚫P82Day06-03. MySQL-概述-数据模型
+●SQL语句
+DDL数据定义语言，用来定义数据库对象(数据库，表，字段)
+DML数据操作语言，用来对数据库表中的数据进行增删改
+DQL数据查询语言，用来查询数据库中表的记录
+DCL数据控制语言，用来创建数据库用户、控制数据库的
+
+⚫P84Day06-05. MySQL-DDL-图形化工具
+●图形化工具操作数据库（service中自动完成指令）
+◽创建数据库：localhost-new-Schema
+◽查看所有数据库：运行show databases ;
+◽切换数据库：单击-右上角数据库名
+◽查看历史指令：localhost-jump to Query
+
+⚫P85Day06-06. MySQL-DDL-表结构操作-创建
+●约束
+非空约束 限制该字段值不能为null not null
+唯一约束 保证字段的所有数据都是唯一、不重复的 unique
+主键约束 主键是一行数据的唯一标识，要求非空且唯一 primary key
+默认约束 保存数据时，如果未指定该字段值，则采用默认值 default
+外键约束 让两张表的数据建立连接，保证数据的一致性和完整性 foreign key
+●id字段
+auto_increment（1自增）
+
+⚫P86Day06-07. MySQL-DDL-表结构操作-数据类型
+●数据类型
+数值类型
+字符串类型：CHAR 0-255 bytes 定长字符串(需要指定长度)，VARCHAR 0-65535 bytes 变长字符串(需要指定长度)
+日期时间
+
+⚫P87Day06-08. MySQL-DDL-表结构操作-创建-案例
+●图形化建表
+左侧表名-new-table
+
+⚫P92Day07-01. MySQL-DQL-基本查询
+
+
+⚫P93Day07-02. MySQL-DQL-条件查询
+●比较运算符
+<> 或 != 不等于
+between ... and ... 在某个范围之内(含最小、最大值)
+in(...) 在in之后的列表中的值，多选一
+like 占位符 模糊匹配(_匹配单个字符, %匹配任意个字符)
+is null 是null
+●逻辑运算符
+and 或 && 并且 (多个条件同时成立)
+or 或 || 或者 (多个条件任意一个成立)
+not 或 ! 非 , 不是
+
+⚫P94Day07-03. MySQL-DQL-聚合函数
+●聚合函数
+count 统计数量
+max 最大值
+min 最小值
+avg 平均值
+sum 求和
+
+⚫P95Day07-04. MySQL-DQL-分组查询
+●分组其实就是按列进行分类(指定列下相同的数据归为一类)，然后处理分类完的数据
+◽分组之后，查询的字段一般为聚合函数和分组字段，查询其他字段无任何意义
+◽执行顺序：where > 聚合函数 > having，
+●where与having区别
+◽执行时机不同：where是分组之前进行过滤，不满足where条件，不参与分组；而having是分组之后对结果进行过滤。
+◽判断条件不同：where不能对聚合函数进行判断，而having可以。
+
+⚫P100Day07-09. MySQL-多表设计-一对多-外键
+●外键约束：让两张表的数据建立连接，保证数据的一致性和完整性。 可以通过SQL语句或图形化操作
+◽创建表时指定
+◽建完表后，添加外键
+外键约束效率差，不在表中添加物理外键而在业务中使用逻辑外键
+⚫P101Day07-10. MySQL-多表设计-一对一&多对多
+●查看表关系
+选中多个表-Diagrams
+
+⚫P103Day07-12. MySQL-多表设计-案例-表结构
+●外键关系
+◽一对多。在多的一方添加外键，关联另外一方的主键。
+◽一对一。任意一方，添加外键，关联另外一方的主键。
+◽多对多。通过中间表来维护，中间表的两个外键，分别关联另外两张表的主键。
+
+⚫P105Day08-02. MySQL-多表查询-内连接
+隐式和显式
+
+⚫P106Day08-03. MySQL-多表查询-外连接
+左外连接相当于查询表1(左表)的所有数据，因此左表未关联右表的数据也能查到（内连接不能）
+
+⚫P107Day08-04. MySQL-多表查询-子查询(标量、列)
+●根据子查询结果的不同分为：
+1. 标量子查询（子查询结果为单个值[一行一列]），常用比较
+2. 列子查询（子查询结果为一列，但可以是多行），常用IN
+3. 行子查询（子查询结果为一行，但可以是多列），常用比较，IN
+4. 表子查询（子查询结果为多行多列[相当于子查询结果是一张表]）
+●子查询可以书写的位置：
+1. where之后
+2. from之后
+3. select之后
+
+⚫P109Day08-06. MySQL-多表查询-案例1
+
+⚫P115Day08-12. MySQL-索引-操作语法
+●主键索引：主键字段，在建表时，会自动创建主键索引
+●唯一索引：添加唯一约束时，数据库实际上会添加唯一索引
+——————————————————————
+Mybatis
+
+⚫P117Day08-14. Mybatis-入门-快速入门程序
+●MyBatis操作数据库的步骤：
+1.准备工作(创建springboot工程、数据库表user、实体类User)
+◽创建springboot工程，并导入 mybatis的起步依赖【MyBatis Framework】、mysql的驱动包【MySQL Driver】。
+◽提供数据库表user
+◽创建用户表user，pojo包创建对应的实体类User（使用包装类）。
+2.配置Mybatis(数据库连接信息)
+◽src/main/resources/application.properties写入四项配置信息：driver-class-name、url 、username，password
+◽编写SQL语句(注解/XML)
+◽mapper包下创建持久层接口 UserMapper
+3.单元测试
+◽定义pojo.User类
+◽定义mapper.UserMapper接口【@Mapper生成接口代理对象放入IOC】，接口中定义方法【@Select(SQL语句)】，返回查询User列表
+◽测试类【@SpringBootTest】中定义UserMapper对象【@Autowired从IOC注入】，测试方法contextLoads【@Test】中使用UserMapper对象方法
+
+●porn.xml
+父工程<parent>
+项目信息
+<groupId>com.example</groupId>
+<artifactId>springboot-mybatis-qs</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>springboot-mybatis-qs</name>
+<description>springboot-mybatis-qs</description>
+JDK版本<properties>
+依赖<dependencies>
+插件<build>
+
+⚫P118Day08-15. Mybatis-入门-配置SQL提示
+●识别SQL语句，识别数据库表
+
+⚫P120Day08-17. Mybatis-入门-数据库连接池
+●官方(sun)提供了数据库连接池标准，javax.sql.DataSource接口，第三方组织按照DataSource接口实现。如Druid，Hikari (springboot默认)
+●Druid设为默认连接池
+
+⚫P121Day08-18. Mybatis-入门-lombok工具
+@Data //getter方法、setter方法、toString方法、hashCode方法、equals方法
+@NoArgsConstructor //无参构造
+@AllArgsConstructor//全参构造
+
+⚫P123Day09-02. Mybatis-基础操作-删除
+@Mapper接口编写方法
+@Delete("delete from emp where id = #{id}") // 使用#{key}方式获取方法中的参数值
+public void delete(Integer id);
+
+⚫P124Day09-03. Mybatis-基础操作-删除
+●在控制台显示日志信息：application.properties配置开启mybatis的日志
+mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+●预编译SQL：编译一次之后会将编译后的SQL语句缓存起来（抽象出参数）
+1. 性能更高
+2. 更安全，防止SQL注入（'or' 1 '=' 1）
+#{...}赋值变量，是预编译SQL
+${...}拼接字符串，不是预编译SQL
+
+⚫P125Day09-04. Mybatis-基础操作-新增
+使用类对象传参，参数与类属性同名
+@Insert("insert into emp(username, name, gender, image, job,entrydate, dept_id, create_time, update_time) values (#{username}, #{name}, #{gender}, #{image}, #{job}, #{entrydate}, #{deptId}, #{createTime}, #{updateTime})")
+public void insertEmp(Emp emp);
+
+⚫P126Day09-05. Mybatis-基础操作-新增(主键返回)
+insertEmp方法添加注解【@Options自动将生成的主键值，赋值给当前emp对象的id属性】
+@Options(useGeneratedKeys = true,keyProperty = "id")
+
+⚫P127Day09-06. Mybatis-基础操作-更新
+同新增
+
+⚫P128Day09-07. Mybatis-基础操作-查询(根据ID查询)
+●不能自动封装不同名的类属性名和数据库表字段名
+◽SQL语句起别名
+◽手动结果映射
+◽开启驼峰命名(推荐)：application.properties配置驼峰命名规则映射
+mybatis.configuration.map-underscore-to-camel-case=true
+
+⚫P129Day09-08. Mybatis-基础操作-查询(条件查询)
+●like模糊查询可能导致SQL注入
+使用字符串拼接方法concat
+name like concat('%',#{name},'%') "
+
+⚫P130Day09-09. Mybatis-XML映射文件
+●问题：SQL语句注解方式臃肿繁琐
+简写为XML映射文件方式
+◽XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下（不同目录resources\同包同名）
+◽XML映射文件的namespace属性为Mapper接口全限定名（右键复制）一致
+◽XML映射文件中sql语句的id与Mapper接口中的方法名一致，并保持返回类型（数组包含的元素全类型名）一致。
+xml映射文件中的dtd约束，固定代码
+●MybatisX插件
+实现代码生成和XML定位
+
+⚫P131Day09-10. Mybatis-动态SQL-if
+●问题：SQL语句多个查询条件动态变化
+使用动态SQL的标签
+<if>：条件编译
+<where>：插入where关键字，删首位空条件and
+
+
+⚫P132Day09-11. Mybatis-动态SQL-if-案例
+●update问题：如果不指定更新值，会用null覆盖原本的记录
+通过<if>判断是否是null
+●<set> ：插入set关键字，删末位空条件逗号（用于update语句中）
+
+⚫P133Day09-12. Mybatis-动态SQL-foreach
+●批量删除
+<foreach>标签遍历方法中传递的参数集合
+<foreach collection="集合名称" item="集合遍历出来的元素/项" separator="每一次遍历使用的分隔符"open="遍历开始前拼接的片段" close="遍历结束后拼接的片段">
+</foreach>
+
+⚫P134Day09-13. Mybatis-动态SQL-sql&include
+●封装重复的SQL语句
+<sql id="***"> ：定义可重用的SQL片段
+<include refid="***"/> ：通过属性refid，指定包含的SQL片段
+
+⚫P135Day10-01. 案例-准备工作
+●准备工作
+1. 准备数据库表(dept、emp)
+2. 创建springboot工程，引入对应的起步依赖（web-spring web、SQL-mybatis framework、SQL-mysql driver、developer tools-lombok）
+3. 配置文件application.properties中引入mybatis的配置信息（数据库连接，日志输出，驼峰映射），准备对应的pojo实体类
+实体类：pojo.Dept【C】@Data@NoArgsConstructor@AllArgsConstructor
+4. 准备对应的Mapper（接口）、Service(接口、实现类)、Controller(实现类)基础结构
+controller.DeptController【C】@RestController
+service.DeptService【I】
+service.impl.DeptServiceImpl【C】@Service
+mapper.DeptMapper【I】@Mapper
+
+●开发规范-REST
+◽通过URL定位要操作的资源，通过HTTP动词(请求方式)来描述具体的操作
+GET ： 查询
+POST ：新增
+PUT ：修改
+DELETE ：删除
+◽使用统一响应结果 Result 类
+private Integer code;//响应码，1 代表成功; 0 代表失败
+private String msg; //响应信息 描述字符串
+private Object data; //返回的数据
+
+
+——————————————————————
+⚫●◽★

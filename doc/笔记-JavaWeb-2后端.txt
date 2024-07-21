@@ -1,0 +1,218 @@
+⚫●◽★
+——————————————————————
+黑马程序员2023新版JavaWeb开发教程，实现javaweb企业开发全流程
+https://www.bilibili.com/video/BV1m84y1w7Tb/?p=50
+——————————————————————
+Maven
+⚫P51Day04-02. maven-概述-介绍&安装
+●使用Maven能够做什么
+1. 依赖管理：项目依赖的资源(jar包)，避免版本冲突问题
+2. 统一项目结构：提供标准、统一的项目结构，避免跨开发平台冲突问题
+3. 项目构建：提供了标准的、跨平台(Linux、Windows、MacOS) 的自动化项目构建方式。提供了一套简单的命令来完成编译、测试、打包、发布
+
+⚫P52Day04-03. maven-idea集成-配置及创建maven项目
+●新建项目
+
+⚫P53Day04-04. maven-idea集成-导入maven项目
+●导入项目
+
+⚫P54Day04-05. maven-依赖管理-依赖配置
+●在maven工程的pom.xml文件中，引入logback的依赖
+1. 在pom.xml中编写标签
+2. 在标签中使用引入坐标
+3. 定义坐标的 groupId、artifactId、version
+
+●添加依赖的几种方式：
+1. 利用中央仓库搜索的依赖坐标（https://mvnrepository.com/）
+2. 利用IDEA工具搜索依赖
+
+⚫P55Day04-06. maven-依赖管理-依赖传递
+由于maven的依赖具有传递性，所以会自动把所依赖的其他jar包也一起导入
+那么A依赖B，B依赖C，如果A不想将C依赖进来，可以通过排除依赖<exclusions>来实现
+
+
+⚫P56Day04-07. maven-依赖管理-依赖范围
+如果希望限制依赖的使用范围，通过scope标签指定依赖的作用范围。
+
+scope值 主程序 测试程序 打包（运行） 范例
+compile（默认） Y Y Y log4j
+test - Y - junit
+provided Y Y - servlet-api
+runtime - Y Y jdbc驱动
+
+⚫P57Day04-08. maven-依赖管理-生命周期
+●生命周期概念
+Maven对所有的构建过程进行抽象和统一，对项目构建的生命周期划分为3套，相互独立，内含多个阶段：
+clean：清理工作。
+default：核心工作。如：编译、测试、打包、安装、部署等。
+site：生成报告、发布站点等。
+重点阶段：clean --> compile --> test --> package --> install
+在同一套生命周期中，我们在执行后面的生命周期时，前面的生命周期都会执行。
+
+●执行
+在idea中选择对应的生命周期，双击执行
+
+●jar包索引失败解决方案
+5.1 更新依赖索引
+5.2 清理maven仓库
+
+——————————————————————
+Springboot
+
+⚫P59Day04-10. Web入门-SpringBootWeb-快速入门
+●快速入门
+◽创建springboot工程，填写模块信息，并勾选web开发相关依赖。
+◽创建请求处理类Hellocontroller，添加请求处理方法hello，并添加注解。
+◽运行启动类，打开浏览器测试。
+
+⚫P60Day04-11. Web入门-HTTP协议-概述
+●localhost:8080/hello
+localhost，就是127.0.0.1（本机）
+8080，就是端口
+
+●HTTP协议特点
+基于TCP协议，面向连接
+基于请求-响应模型，一次请求对应一次响应
+无状态协议：每次请求-响应都是独立的。若要在不同请求-响应中传输数据，使用会话技术(Cookie、Session)
+
+●HTTP协议分类
+请求协议：浏览器将数据以请求格式发送到服务器。包括：请求行、请求头 、请求体
+响应协议：服务器将数据以响应格式返回给浏览器。包括：响应行 、响应头 、响应体
+
+⚫P61Day04-12. Web入门-HTTP协议-请求协议
+●请求协议GET
+◽请求行 ：HTTP请求中的第一行数据。由： 请求方式 、 资源路径 、 协议/版本 组成（之间使用空格分隔）
+请求方式：GET 
+资源路径：/brand/findAll?name=OPPO&status=1
+请求路径：/brand/findAll
+请求参数：name=OPPO&status=1
+请求参数是以key=value形式出现。多个请求参数之间使用 & 连接。请求路径和请求参数之间使用 ? 连接
+协议/版本：HTTP/1.1 
+◽请求头 ：第二行开始，上图黄色部分内容就是请求头。格式为key: value形式
+http是个无状态的协议，所以在请求头设置浏览器的一些自身信息和想要响应的形式。这样服务器在收到信息后，就可以知道是谁，想干什么了
+◽请求体 ：存储请求参数
+GET请求的请求参数在请求行中，故不需要设置请求体
+
+●请求协议POST
+◽POST请求的请求参数在请求体中
+◽请求行，请求头同上
+
+⚫P62Day04-13. Web入门-HTTP协议-响应协议
+●响应协议
+◽响应行(以上图中红色部分)：响应数据的第一行。响应行由 协议及版本 、 响应状态码 、 状态码描述 组成
+协议/版本：HTTP/1.1
+响应状态码：200
+状态码描述：OK
+◽响应头，响应体同上
+
+●常见响应状态码
+200 ok 客户端请求成功
+404 Not Found 请求资源不存在
+500 Internal Server Error 服务端发生不可预期的错误
+
+⚫P63Day04-14. Web入门-HTTP协议-协议解析
+HTTP协议解析流程固定，已经被封装在了web服务器中（如Tomecat）。
+手写流程：ServerSocket程序，会读取服务器上 html/a.html 文件，并把文件数据发送给浏览器。浏览器接收到a.html文件中的数据后进行解析，显示内容
+
+⚫P65Day04-16. Web入门-Tomcat-基本使用
+Tomcat安装和使用
+
+⚫P66Day04-17. Web入门-Tomcat-入门程序解析(内嵌tomcat)
+●起步依赖：项目创建时需要的依赖，集成了所需的全部依赖传递
+spring-boot-starter-web
+spring-boot-starter-test
+●内嵌Tomcat服务器
+基于Springboot开发的web应用程序，内置了tomcat服务器，当启动类运行时，会自动启动内嵌的tomcat服务器。
+
+⚫P67Day05-01. 请求响应-概述
+BS架构：Browser/Server，浏览器/服务器架构模式。客户端只需要浏览器，应用程序的逻辑和数据都存储在服务端。
+
+⚫P68Day05-02. 请求响应-请求-postman工具
+●如何使用前端页面测试后端代码？
+接口测试工具Postman
+
+⚫P69Day05-03. 请求响应-请求-简单参数&实体参数
+●简单参数
+定义同名的形参即可接收参数
+若不同，在方法形参前面加上@RequestParam注解完成映射
+@RequestParam中的required属性默认为true（默认值也是true），代表该请求参数必须传递，如果不传递将报错
+
+●实体参数
+参数复杂时，将请求参数作为属性封装到一个实体类对象中，请求参数名与形参对象属性名相同
+属性为对象时，按照对象层次结构关系即可接收嵌套实体类属性参数
+
+⚫P70Day05-04. 请求响应-请求-数组集合参数
+●数组集合参数
+(复选框)可以提交选择的多个值，用数组或集合接收
+如果要封装到数组，请求参数名与数组名相同
+如果要封装到集合，要在集合形参前使用@RequestParam绑定参数关系
+
+⚫P71Day05-05. 请求响应-请求-日期参数&json参数
+●日期参数
+对于日期类型的参数在进行封装的时候，要在形参前通过@DateTimeFormat注解，以及其pattern属性来设置日期的格式。
+public String dateParam(@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") LocalDateTime updateTime)
+
+●JSON参数
+JSON数据key键名与形参对象属性名相同，需要使用@RequestBody标识。
+
+⚫P72Day05-06. 请求响应-请求-路径参数
+●路径参数
+传统的开发中请求参数是放在请求体(POST请求)传递或跟在URL后面通过?key=value的形式传递(GET请求)。现在也有直接URL中传递参数(路径参数)
+http://localhost:880/user/1/0
+使用{…}来标识该路径参数，需要使用@PathVariable获取路径参数，多个参数/隔开
+@RequestMapping("/path/{id}/{name}")
+public String pathParam2(@PathVariable Integer id, @PathVariable String name)
+
+⚫P73Day05-07. 请求响应-响应-@ResponseBody&统一响应结果
+●controller方法中的return的结果，怎么就可以响应给浏览器呢？使用@ResponseBody注解
+类型：方法注解、类注解
+位置：书写在Controller方法上或类上
+作用：将方法返回值直接响应给浏览器如果返回值类型是实体对象/集合，将会转换为JSON格式后在响应给浏览器
+@RestController源码，可以看到元注解（修饰注解的注解）。因此在类上添加@RestController就相当于添加了@ResponseBody注解
+
+●统一响应结果，定义在一个实体类Result来包含以下信息，并提供静态返回方法用于return：
+响应状态码：当前请求是成功，还是失败
+状态码信息：给页面的提示信息
+返回的数据：给前端响应的数据（字符串、对象、集合）
+
+⚫P74Day05-08. 请求响应-响应-案例
+
+⚫P75Day05-09. 分层解耦-三层架构
+问题：代码多个功能杂糅在一层，无法复用和扩展
+●分层实现高内聚
+Controller：控制层。接收前端发送的请求，对请求进行处理，并响应数据。
+Service：业务逻辑层。处理具体的业务逻辑。
+Dao：数据访问层(Data Access Object)，也称为持久层。负责数据访问操作，包括数据的增、删、改、查
+
+前端发起的请求，由Controller层接收，层层向下调用。每层面向接口编程，编写不同的接口实现类，创建接口对象实现多态。
+
+⚫P76Day05-10. 分层解耦-分层解耦(IOC-DI引入)
+问题：层层向下调用时，需要创建上一层的对象，上一层的实现切换时，每层都要切换对象。无法修改
+●解耦实现低耦合
+提供一个容器，容器中存储一些对象（控制反转）。controller程序从容器中获取EmpService类型的对象（依赖注入）
+控制反转： Inversion Of Control，简称IOC。对象的创建控制权由程序自身转移到外部（容器）。IOC容器中创建管理的对象，称之为：bean对象
+依赖注入： Dependency Injection，简称DI。容器为应用程序提供运行时，所依赖的资源称之为依赖注入
+
+⚫P77Day05-11. 分层解耦-IOC&DI-入门
+●注解实现类在容器的导入导出
+@Component ，针对类。实现类交给IOC容器管理。Controller，Service，Dao层中的后两者需要放入容器
+@Autowired ，针对对象。实现程序运行时IOC容器自动注入需要的依赖对象。Controller，Service，Dao层中的前两者需要注入依赖对象
+
+⚫P78Day05-12. 分层解耦-IOC&DI-IOC详解
+●Spring框架为了更好的标识bean对象到底归属于哪一层，提供了@Component的衍生注解（不属于以下三类时，用@Component注解）
+@Controller （标注在Controller控制层类上）
+@Service （标注在Service业务层类上）
+@Repository （标注在Dao数据访问层类上）
+●注意
+可以通过注解的value属性指定bean的名字（默认为类名首字母小写）
+可以通过注解@ComponentScan指定要扫描的包（默认扫描的范围是SpringBoot启动类所在包及其子包，因此将所有层放在同一个包下即可）
+
+⚫P79Day05-13. 分层解耦-IOC&DI-DI详解
+●如果定义了多个相同类型的bean对象在容器中
+@Primary注解：当存在多个相同类型的Bean注入时，加上@Primary注解，来确定默认的实现。
+@Qualifier注解：指定当前要注入的bean对象。 在@Qualifier的value属性中，指定注入的bean的名称。
+@Resource注解：是按照bean的名称进行注入。通过name属性指定要注入的bean的名称。
+
+●区别
+@Autowired 是spring框架提供的注解，而@Resource是JDK提供的注解
+@Autowired 默认是按照类型注入，而@Resource是按照名称注
